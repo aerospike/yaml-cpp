@@ -44,13 +44,18 @@ jobs:
       runs-on: ${{ matrix.os }}
       steps:
 
-        - uses: awalsh128/cache-apt-pkgs-action@latest
+        - name: Harden the runner (Audit all outbound calls)
+          uses: step-security/harden-runner@df199fb7be9f65074067a9eb93f12bb4c5547cf2 # v2.13.3
+          with:
+            egress-policy: audit
+
+        - uses: awalsh128/cache-apt-pkgs-action@2c09a5e66da6c8016428a2172bd76e5e4f14bb17 # latest
           if: matrix.os == 'ubuntu-latest'
           with:
             packages: googletest libgmock-dev libgtest-dev
             version: 1.0
 
-        - uses: actions/checkout@v5
+        - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
 
         - name: Configure
           run: |
@@ -108,7 +113,12 @@ jobs:
           os: [ubuntu-latest, windows-latest, macos-latest]
       runs-on: ${{ matrix.os }}
       steps:
-        - uses: actions/checkout@v5
+        - name: Harden the runner (Audit all outbound calls)
+          uses: step-security/harden-runner@df199fb7be9f65074067a9eb93f12bb4c5547cf2 # v2.13.3
+          with:
+            egress-policy: audit
+
+        - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
 
         - name: Build
           run: |
@@ -126,7 +136,12 @@ jobs:
           os: [ubuntu-latest, windows-latest, macos-latest]
       runs-on: ${{ matrix.os }}
       steps:
-        - uses: actions/checkout@v5
+        - name: Harden the runner (Audit all outbound calls)
+          uses: step-security/harden-runner@df199fb7be9f65074067a9eb93f12bb4c5547cf2 # v2.13.3
+          with:
+            egress-policy: audit
+
+        - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
 
         - name: Build
           shell: bash
